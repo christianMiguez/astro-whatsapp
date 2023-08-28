@@ -10,11 +10,11 @@ export async function get(req, res) {
   // verifyToken Whatsapp
   try {
     const accessToken = process.env.WHATSAPP_API_ACCESS_TOKEN;
-    const { token } = req.query["hub.verify_token"];
+    const token = req.query["hub.verify_token"];
     const challenge = req.query["hub.challenge"];
 
     if (challenge != null && token != null && token === accessToken) {
-      return { statusCode: 200, body: challenge };
+      return challenge;
     } else {
       return { statusCode: 400, body: "Invalid token" };
     }
