@@ -6,7 +6,7 @@ export default (request: Request) => {
   return new Response(`Hello, from ${request.url} I'm now an Edge Function!`);
 };
 
-export async function get(req, res) {
+export async function get(req: Request, res: Response) {
   // verifyToken Whatsapp
   try {
     const accessToken = process.env.WHATSAPP_API_ACCESS_TOKEN;
