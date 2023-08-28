@@ -22,7 +22,9 @@ export const get: APIRoute = ({ request, params }) => {
         }),
       };
     } else {
-      return { statusCode: 400, body: "Invalid token" };
+      return {
+        statusCode: 400,
+      };
     }
   } catch (error) {
     return { statusCode: 400, body: "some error" };
