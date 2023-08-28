@@ -8,12 +8,14 @@ export default (request: Request) => {
   return new Response(`Hello, from ${request.url} I'm now an Edge Function!`);
 };
 
-export const get: APIRoute = ({ url }) => {
+export const get: APIRoute = ({ request }) => {
   // verifyToken Whatsapp
   try {
     const accessToken = process.env.WHATSAPP_API_ACCESS_TOKEN;
-    const token = url.searchParams.get("hub.verify_token");
-    const challenge = url.searchParams.get("hub.challenge");
+    const token = request.query["hub.verify_token"];
+    const challenge = request.query["hub.challenge"];
+
+    console.log("challenge", challenge);
 
     if (challenge != null && token != null && token === accessToken) {
       return {
