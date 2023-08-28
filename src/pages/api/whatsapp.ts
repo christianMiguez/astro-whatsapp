@@ -6,19 +6,21 @@ export default (request: Request) => {
   return new Response(`Hello, from ${request.url} I'm now an Edge Function!`);
 };
 
-export async function get() {
-  return {
-    body: JSON.stringify({
-      message: {
-        messaging_product: "whatsapp",
-        preview_url: false,
-        to: "59892646464",
-        recipient_type: "individual",
-        type: "text",
-        text: {
-          body: "Hola chiche",
-        },
-      },
-    }),
-  };
+export async function get(req, res) {
+  // verifyToken Whatsapp
+  try {
+    const accessToken = process.env.WHATSAPP_API!;
+    const { token } = req.query["hub.verify_token"];
+    const challenge = req.body["hub.challenge"];
+
+    if (challenge != null && token != null && token === accessToken) {
+      return { statusCode: 200, body: challenge };
+    } else {
+      return { statusCode: 400, body: "Invalid token" };
+    }
+  } catch (error) {
+    return res.status(400).json({ message: "Unauthorized" });
+  }
 }
+
+export async function post(request: Request) {}
