@@ -11,7 +11,8 @@ export default (request: Request) => {
 export const get: APIRoute = ({ url }) => {
   // verifyToken Whatsapp
   try {
-    const accessToken = process.env.WHATSAPP_API_ACCESS_TOKEN;
+    const accessToken =
+      "61442efe315e75ec8f395fea215ef13fd662b8d8f8114fbf40c6a105f24f74fb6d14c97459cfe53de0f71d2d4998ecd9a56b3ca0257f6b4046df1552478bee32";
     const token = url.searchParams.get("hub.verify_token");
     const challenge = url.searchParams.get("hub.challenge");
 
